@@ -1,5 +1,5 @@
 import React from "react";
-import Square from "./Square";
+import Square from "./Tile";
 
 const Board = (props) => {
   const boardValues = props.boardValues;

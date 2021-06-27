@@ -1,6 +1,8 @@
+import { BackgroundColor } from "chalk";
 import React from "react";
+import colors from "../Ressources/colors";
 
-const Square = (props) => {
+const Tile = (props) => {
   // if value == 0, we should empty String else the number
   const value = props.value;
 
@@ -10,10 +12,10 @@ const Square = (props) => {
 
   //
   return (
-    <div className="tile">
+    <div className="tile" style={{ backgroundColor: colors[Math.log2(value)] }}>
       <p className="content">{parseValue(value)}</p>
     </div>
   );
 };
 
-export default Square;
+export default Tile;

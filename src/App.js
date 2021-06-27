@@ -31,7 +31,7 @@ const App = () => {
 
     setBoardValues(prevState => {
       let newBoard = [...prevState];
-      newBoard[index] = 221;
+      newBoard[index] = 2;
       return newBoard
     })
   }
