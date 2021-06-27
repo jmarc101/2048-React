@@ -4,9 +4,19 @@ import Board from "./Components/Board";
 import useKeypress from "react-use-keypress";
 
 
+let firstGame = true
+
 const App = () => {
+
+  
   //Setting useState for tile values
-  const [boardValues, setBoardValues] = React.useState(newGameBoard);
+  const [numberOfTilesPerRow, setNumberOfTilesPerRow] = React.useState(4)
+  const [boardValues, setBoardValues] = React.useState(newGameBoard(numberOfTilesPerRow));
+  
+  
+ 
+  
+  
 
   //handle keypress
   useKeypress(["ArrowLeft", "ArrowUp", "ArrowRight", "ArrowDown"], (e) => {
@@ -29,23 +39,38 @@ const App = () => {
   });
 
   // MARK: RENDER
-  return <React.Fragment>
-    <div className="container mt-5 text-center">
-      <h1 className="text-success title">2048</h1>
-      <h3>Joindres les tuiles pour avoir 2048</h3>
-      <button
-        className="btn btn-success my-3 me-5"
-        onClick={() => newGame(setBoardValues)}>
-      Nouvelle Partie 
-      </button>
-      <button
-        className="btn btn-success my-3"
-        onClick={() => addRandomSquare([boardValues, setBoardValues])}>
-      Debug Generate random tile
-      </button>
-      <Board boardValues={boardValues} />
-    </div>
-  </React.Fragment>  
+  return (
+    <React.Fragment>
+      <div className="container mt-5 text-center">
+        <h1 className="text-success title">2048</h1>
+        <h3>Joindres les tuiles pour avoir 2048</h3> 
+        <form>
+        <label id="rows" className="pe-3">Veuillez choisir le nombre de Tuiles par lignes: </label> 
+        <input
+          id="rows" 
+          type="text" 
+          onChange={event => {
+            setNumberOfTilesPerRow(parseInt(event.target.value))
+            setBoardValues(newGameBoard(numberOfTilesPerRow))
+          }} /> 
+        </form> 
+        
+        <button
+          className="btn btn-success my-3 me-5"
+          onClick={() => newGame(setBoardValues, numberOfTilesPerRow)}
+        >
+          {firstGame ? "Débuter" : "Nouvelle Partie" }
+        </button>
+        <button
+          className="btn btn-success my-3"
+          onClick={() => addRandomSquare([boardValues, setBoardValues])}
+        >
+          Debug Generate random tile
+        </button>
+        <Board boardValues={boardValues} rowLength={numberOfTilesPerRow}/>
+      </div>
+    </React.Fragment>
+  );  
 };
 
 
@@ -59,13 +84,17 @@ const App = () => {
   // 0,   0,   0,   0,
   // 0,   0,   0,   0,
   // 0,   0,   0,   0]
-const newGameBoard = new Array(16).fill(0);
+const newGameBoard = (numberOfTiles) => {
+  
+  return new Array(numberOfTiles * numberOfTiles).fill(0);
+};
 
  //Reinitialise for new game
- const newGame = (setBoardValues) => {
-  setBoardValues(newGameBoard);
+ const newGame = (setBoardValues, numberOfTiles) => {
+  setBoardValues(newGameBoard(numberOfTiles));
+  firstGame = false
   
-  let firstTile = Math.trunc(Math.random() * 16);
+  let firstTile = Math.trunc(Math.random() * numberOfTiles);
   setBoardValues(prevState => {
     let newBoard = [...prevState];
       newBoard[firstTile] = 2;
@@ -80,7 +109,7 @@ const addRandomSquare = ([state, setState]) => {
 
   setState((prevState) => {
     let newBoard = [...prevState];
-    newBoard[index] = 4;
+    newBoard[index] = 1024;
     return newBoard;
   });
 };
@@ -131,5 +160,6 @@ const playedDown = (setState) => {
     return board
   })
 };
+
 
 export default App;

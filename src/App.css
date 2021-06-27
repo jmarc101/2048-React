@@ -1,3 +1,11 @@
+input {
+  height: 50px;
+  width: 80px;
+  font-size: 2rem;
+  padding-left: 10px;
+}
+
+
 .title {
   font-size: 5rem;
 }
@@ -14,16 +22,17 @@
 .content{
   padding-left: 0;
   font-size: inherit;
-  margin-top: 22px;
+  /* margin-top: 22px; */
   text-align: center;
 
 }
+
+
 
 .board {
 
   border: 5px solid rgb(3, 158, 3) ;
   margin: auto;
-  width: 410px;
-  height: 410px;
+  margin-bottom: 2rem;
   border-radius: 10px;
 }
