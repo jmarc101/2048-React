@@ -1,43 +1,62 @@
 import React from "react";
 import "./App.css";
 import Board from "./Components/Board";
+import useKeypress from "react-use-keypress";
 
 
 const App = () => {
-
   //Setting useState for tile values
-  const [boardValues, setBoardValues] = React.useState(newGameBoard)
+  const [boardValues, setBoardValues] = React.useState(newGameBoard);
+
+  //handle keypress
+  useKeypress(["ArrowLeft", "ArrowUp", "ArrowRight", "ArrowDown"], (e) => {
+    switch (e.key) {
+      case "ArrowLeft": // LEFT
+        playedLeft();
+        break;
+      case "ArrowUp": // UP
+        playedUp();
+        break;
+      case "ArrowRight": // RIGHT
+        playedRight();
+        break;
+      case "ArrowDown": //Down
+        playedDown();
+        break;
+      default:
+        break;
+    }
+  });
 
   //Reinitialise for new game
   const newGame = () => {
-    setBoardValues(newGameBoard)
-    firstSquare()
-  }
+    setBoardValues(newGameBoard);
+    firstSquare();
+  };
 
   // first square of the game
   const firstSquare = () => {
-    let tile = Math.trunc(Math.random() * 16)
-    
-    setBoardValues(prevState => {
-      let newBoard = [...prevState]
+    let tile = Math.trunc(Math.random() * 16);
+
+    setBoardValues((prevState) => {
+      let newBoard = [...prevState];
       newBoard[tile] = 2;
-      return newBoard
-    })
-  }
+      return newBoard;
+    });
+  };
 
   // add 2 to a random empty square
   const addRandomSquare = () => {
-    let index = getRandomIndexFromEmptySquares(boardValues)
+    let index = getRandomIndexFromEmptySquares(boardValues);
 
-    setBoardValues(prevState => {
+    setBoardValues((prevState) => {
       let newBoard = [...prevState];
-      newBoard[index] = 2048;
-      return newBoard
-    })
-  }
-  
+      newBoard[index] = 4;
+      return newBoard;
+    });
+  };
 
-  // MARK: RENDER 
+  // MARK: RENDER
   return (
     <div className="container mt-5 text-center">
       <h1 className="text-success title">2048</h1>
@@ -73,40 +92,19 @@ return emptyTiles[Math.trunc(Math.random() * emptyTiles.length)]
 
 }
 
-
-const handleKeyDown = (e) => {
-
-  switch (e.keyCode) {
-    case 37: // LEFT
-      playedLeft()
-      break;
-    case 38: // UP
-      playedUp();
-      break;
-    case 39: // RIGHT
-      playedRight();
-      break;
-    case 40: //Down
-      playedDown();
-      break;
-    default:
-      break;
-  }
+const playedLeft = () => {
+  console.log("pressed left");
 };
 
-const playedLeft = () => {
-
-}
-
 const playedUp = () => {
-  
+  console.log("pressed up");
 }
 
 const playedRight = () => {
-  
+  console.log("pressed right");
 }
 
 const playedDown = () => {
-  
+  console.log("pressed down"); 
 }
 export default App;
