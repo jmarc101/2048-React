@@ -12,7 +12,14 @@ const Tile = (props) => {
 
   //
   return (
-    <div className="tile" style={{ backgroundColor: colors[Math.log2(value)] }}>
+    <div
+      className="tile"
+      style={{
+        backgroundColor: colors[Math.log2(value)],
+        color: value >= 8 ? "white" : "darkGreen",
+        fontSize: value > 1000 ? "1.8rem" : "2rem",
+      }}
+    >
       <p className="content">{parseValue(value)}</p>
     </div>
   );
