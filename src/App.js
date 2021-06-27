@@ -1,5 +1,4 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import Board from "./Board";
 
@@ -14,6 +13,7 @@ const App = () => {
     firstSquare()
   }
 
+  // first square of the game
   const firstSquare = () => {
     let tile = Math.trunc(Math.random() * 16)
     
@@ -22,9 +22,9 @@ const App = () => {
       newBoard[tile] = 2
       return newBoard
     })
-    //console.log(tileValues);
   }
 
+  // add 2 to a random empty square
   const addRandomSquare = () => {
     let index = getRandomIndexFromEmptySquares(boardValues)
 
@@ -46,7 +46,6 @@ const App = () => {
       <Board boardValues={boardValues} />
     </React.Fragment>
   );
-
 };
 
 // GAME LOGIC
@@ -61,7 +60,7 @@ const newGameBoard = new Array(16).fill(0);
 const getRandomIndexFromEmptySquares = (board) => {
   let emptyTiles = []
   board.forEach((e, index) => {
-    if (e == 0) {
+    if (e === 0) {
       emptyTiles.push(index)
     }
   });
