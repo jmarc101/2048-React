@@ -5,11 +5,15 @@ const Square = (props) => {
   const value = props.value;
 
   const parseValue = (value) => {
-    return value == 0 ? "" : "" + value;
+    return value === 0 ? "" : "" + value;
   };
 
   //
-  return <button className="square">{parseValue(value)}</button>;
+  return (
+    <div className="tile">
+      <p className="content">{parseValue(value)}</p>
+    </div>
+  );
 };
 
 export default Square;

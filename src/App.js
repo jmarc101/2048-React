@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
-import Board from "./Board";
+import Board from "./Components/Board";
+
 
 const App = () => {
 
@@ -29,8 +30,8 @@ const App = () => {
     let index = getRandomIndexFromEmptySquares(boardValues)
 
     setBoardValues(prevState => {
-      let newBoard = [...boardValues]
-      newBoard[index] = 2
+      let newBoard = [...prevState];
+      newBoard[index] = 221;
       return newBoard
     })
   }
@@ -38,13 +39,17 @@ const App = () => {
 
   // MARK: RENDER 
   return (
-    <React.Fragment>
-      <h1 className="gameTitle">2048</h1>
-      <h3 className="titleSubSection">Joindres les tuiles pour avoir 2048</h3>
-      <button className="btn" onClick={newGame} style={{marginRight: 50}} >Nouvelle Partie</button>
-      <button className="btn" onClick={addRandomSquare} >Debug Generate random tile</button>
+    <div className="container mt-5 text-center">
+      <h1 className="text-success title">2048</h1>
+      <h3>Joindres les tuiles pour avoir 2048</h3>
+      <button className="btn btn-success my-3 me-5" onClick={newGame}>
+        Nouvelle Partie
+      </button>
+      <button className="btn btn-success my-3" onClick={addRandomSquare}>
+        Debug Generate random tile
+      </button>
       <Board boardValues={boardValues} />
-    </React.Fragment>
+    </div>
   );
 };
 
