@@ -26,27 +26,25 @@ export const AppReducer = (state, action) => {
 
     case "MOVE_UP":
       //swipe up
-      newBoard = playedUp(state)
-      newBoard[getRandomIndexFromEmptySquares(newBoard)] = 2
-      return {...state, boardValues: newBoard}
-      
+      newBoard = playedUp(state);
+      newBoard[getRandomIndexFromEmptySquares(newBoard)] = 2;
+      return { ...state, boardValues: newBoard };
 
     case "MOVE_RIGHT":
       //swipt right
-      newBoard = playedRight(state)
-      newBoard[getRandomIndexFromEmptySquares(newBoard)] = 2
-      return {...state, boardValues: newBoard}
-
+      newBoard = playedRight(state);
+      newBoard[getRandomIndexFromEmptySquares(newBoard)] = 2;
+      return { ...state, boardValues: newBoard };
 
     case "MOVE_DOWN":
-      newBoard = playedDown(state)
-      newBoard[getRandomIndexFromEmptySquares(newBoard)] = 2
-      return {...state, boardValues: newBoard}
+      newBoard = playedDown(state);
+      newBoard[getRandomIndexFromEmptySquares(newBoard)] = 2;
+      return { ...state, boardValues: newBoard };
 
     case "MOVE_LEFT":
-      newBoard = playedLeft(state)
-      newBoard[getRandomIndexFromEmptySquares(newBoard)] = 2
-      return {...state, boardValues: newBoard}
+      newBoard = playedLeft(state);
+      newBoard[getRandomIndexFromEmptySquares(newBoard)] = 2;
+      return { ...state, boardValues: newBoard };
 
     case "DEBUG":
       let board = [...state.boardValues];
