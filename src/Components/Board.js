@@ -1,13 +1,13 @@
 import React from "react";
+import "../App.css";
 import Square from "./Tile";
 
 const Board = (props) => {
-  const boardValues = props.boardValues;
-  const widthAndHeight = Math.sqrt(props.rowLength * props.rowLength) * (props.rowLength > 10 ? 50 : 100) + 10;
+  const { numberOfRows, boardValues } = props;
+  const widthAndHeight =
+    Math.sqrt(numberOfRows * numberOfRows) * (numberOfRows > 10 ? 50 : 100) +
+    10;
 
-  //   return <div className="board">{tileValues.forEach((element) => {
-
-  //   })}</div>;
   return (
     <>
       <div
@@ -16,7 +16,7 @@ const Board = (props) => {
       >
         <div className="row">
           {boardValues.map((tile, index) => {
-            return <Square key={index} value={tile} rowLength={props.rowLength}  />;
+            return <Square key={index} value={tile} rowLength={numberOfRows} />;
           })}
         </div>
       </div>

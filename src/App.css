@@ -1,8 +1,9 @@
 input {
   height: 50px;
-  width: 80px;
+  width: 20rem;
   font-size: 2rem;
   padding-left: 10px;
+  background: blueviolet;
 }
 
 
@@ -15,17 +16,33 @@ input {
   background-color: rgb(224, 251, 245);
   width: 100px;
   height: 100px;
+  font-size: 1.8rem;
   
 }
 
+.tile-small {
+  border: 5px solid rgb(3, 158, 3) ;
+  background-color: rgb(224, 251, 245);
+  width: 50px;
+  height: 50px;
+  font-size: 1rem;
+}
 
-.content{
+.content {
   padding-left: 0;
   font-size: inherit;
-  /* margin-top: 22px; */
   text-align: center;
-
+  margin-top: 22px;
+  margin-left: 0;
 }
+
+.content-small {
+  padding-left: 0;
+  font-size: inherit;
+  text-align: center;
+  margin-top: 10px;
+}
+
 
 
 
