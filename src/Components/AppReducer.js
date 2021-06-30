@@ -7,7 +7,7 @@ export const defaultState = {
 
 // REDUCER
 export const AppReducer = (state, action) => {
-  console.log("inRefucer");
+
   switch (action.type) {
     case "NEW_GAME":
       //new game
@@ -27,24 +27,28 @@ export const AppReducer = (state, action) => {
     case "MOVE_UP":
       //swipe up
       playedUp();
-      break;
+      return state;
+      
 
     case "MOVE_RIGHT":
       //swipt right
       playedRight();
-      break;
+      return state;
 
     case "MOVE_DOWN":
       playedDown();
-      break;
+      return state;
 
     case "MOVE_LEFT":
       playedLeft();
-      break;
+      return state;
 
     case "DEBUG":
       let board = [...state.boardValues];
-      board[getRandomIndexFromEmptySquares(board)] = 1024;
+      board[getRandomIndexFromEmptySquares(board)] = Math.pow(
+        2,
+        Math.trunc(Math.random() * state.numberOfRows - 1) + 1
+      );
       return { ...state, boardValues: board };
 
     default:
@@ -54,10 +58,13 @@ export const AppReducer = (state, action) => {
 
 // TILE LOGIC
 
-const newGameBoard = (numberOfRows) =>
-  new Array(numberOfRows * numberOfRows).fill(0);
-const getFirstTile = (numberOfRows) =>
-  Math.trunc(Math.random() * Math.pow(numberOfRows, 2));
+// Create new boardValues Array
+const newGameBoard = (numberOfRows) => new Array(numberOfRows * numberOfRows).fill(0);
+
+// get a random first tile for empty board
+const getFirstTile = (numberOfRows) => Math.trunc(Math.random() * Math.pow(numberOfRows, 2));
+
+// checks all empty squares and return a random index of one of them
 const getRandomIndexFromEmptySquares = (board) => {
   let emptyTiles = [];
   board.forEach((e, index) => {
@@ -68,13 +75,23 @@ const getRandomIndexFromEmptySquares = (board) => {
   return emptyTiles[Math.trunc(Math.random() * emptyTiles.length)];
 };
 
+
+
 /*  KEY PRESS LOGIC
  */
 // action when we press buttons
-const playedLeft = () => {};
+const playedLeft = () => {
+  console.log("pressed left");
+};
 
-const playedUp = () => {};
+const playedUp = () => {
+  console.log("pressed up");
+};
 
-const playedRight = () => {};
+const playedRight = () => {
+  console.log("pressed right");
+};
 
-const playedDown = () => {};
+const playedDown = () => {
+  console.log("pressed down");
+};
