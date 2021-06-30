@@ -69,6 +69,9 @@ const randomSquareNumber = () => Math.pow(2, Math.trunc(Math.random() * 11) + 1)
 // get a random first tile for empty board
 const getFirstTile = (numberOfRows) => Math.trunc(Math.random() * Math.pow(numberOfRows, 2));
 
+// returns all non-zero tiles
+const removeEmptyTiles = (array) => array.filter((tile) => tile !== 0)
+
 // checks all empty squares and return a random index of one of them
 const getRandomIndexFromEmptySquares = (board) => {
   let emptyTiles = [];
@@ -80,35 +83,10 @@ const getRandomIndexFromEmptySquares = (board) => {
   return emptyTiles[Math.trunc(Math.random() * emptyTiles.length)];
 };
 
-const removeEmptyTiles = (array) => {
-  let nonEmptyTiles = [];
-  for (let i = 0; i < array.length; i++) {
-    if (array[i] > 0) nonEmptyTiles.push(array[i]);
-  }
-  return nonEmptyTiles;
-};
 
-const merge = (array) => {
-  let nonEmptyTiles = removeEmptyTiles(array);
-  var mergedRow = []; // sourceRow after it was merged
+  
 
-  for (let i = 0; i < nonEmptyTiles.length; i++) {
-    // after all elements were pushed we push the last element because there is no element after to be merged with
-    if (i === nonEmptyTiles.length - 1) mergedRow.push(nonEmptyTiles[i]);
-    // comparing if values are mergeable
-    else if (nonEmptyTiles[i] === nonEmptyTiles[i + 1]) {
-      // elements got merged so a new element appears and gets incremented
-      // skip one element(i++) because it got merged
-      mergedRow.push(nonEmptyTiles[i] * 2);
-      i++;
-    } else {
-      // no merge, so follow normal order
-      mergedRow.push(nonEmptyTiles[i]);
-    }
-  }
 
-  return mergedRow;
-};
 
 
 
@@ -127,8 +105,10 @@ const playedUp = (state) => {
       arrayOfRow.push(board[index]);
     }
 
-    let rowArray = merge(arrayOfRow);
+    let rowArray = mergeLeftUp(arrayOfRow);
     let arrayToConcat = new Array(state.numberOfRows - rowArray.length).fill(0);
+
+    // fill mergeArray with 0s
     const combine = [...rowArray, ...arrayToConcat];
 
     for (let i = 0; i <= indexes.length; i++) {
@@ -144,11 +124,13 @@ const playedRight = (state) => {
   for (let row = 0; row < state.numberOfRows; row++) {
     let startIndex = row * state.numberOfRows;
     let endIndex = row * state.numberOfRows + (state.numberOfRows - 1);
-    let rowArray = merge(board.slice(startIndex, endIndex + 1));
-
+    let rowArray = mergeDownRight(board.slice(startIndex, endIndex + 1));
     let arrayToConcat = new Array(state.numberOfRows - rowArray.length).fill(0);
+
+    // fill mergeArray with 0s
     const combine = [...arrayToConcat, ...rowArray];
 
+    //updateState
     let y = 0;
     for (let i = startIndex; i <= endIndex; i++) {
       board[i] = combine[y];
@@ -169,7 +151,7 @@ const playedDown = (state) => {
       arrayOfRow.push(board[index]);
     }
 
-    let rowArray = merge(arrayOfRow);
+    let rowArray = mergeDownRight(arrayOfRow);
     let arrayToConcat = new Array(state.numberOfRows - rowArray.length).fill(0);
     const combine = [...arrayToConcat, ...rowArray];
 
@@ -186,7 +168,7 @@ const playedLeft = (state) => {
   for (let row = 0; row < state.numberOfRows; row++) {
     let startIndex = row * state.numberOfRows;
     let endIndex = row * state.numberOfRows + (state.numberOfRows - 1);
-    let rowArray = merge(board.slice(startIndex, endIndex + 1));
+    let rowArray = mergeLeftUp(board.slice(startIndex, endIndex + 1));
 
     let arrayToConcat = new Array(state.numberOfRows - rowArray.length).fill(0);
     const combine = [...rowArray, ...arrayToConcat];
@@ -198,5 +180,61 @@ const playedLeft = (state) => {
     }
   }
   return board;
+};
+
+
+/**
+ * 
+    MERGE LOGIC
+ * 
+ */
+
+const mergeLeftUp = (array) => {
+  let nonZeroTiles = removeEmptyTiles(array);
+  var mergedTiles = [];
+
+  // we iterate throught non-zero array
+  for (let i = 0; i < nonZeroTiles.length; i++) {
+
+    // if we are at last index we automatically push (no merge possible)
+    if (i === nonZeroTiles.length - 1) mergedTiles.push(nonZeroTiles[i]);
+
+    //check current index === next index
+    else if (nonZeroTiles[i] === nonZeroTiles[i + 1]) {
+      //if same we merge and skip next index
+      mergedTiles.push(nonZeroTiles[i] * 2);
+      i++;
+    } else {
+
+      // if they dont merge, try next index
+      mergedTiles.push(nonZeroTiles[i]);
+    }
+  }
+
+  return mergedTiles;
+};
+const mergeDownRight = (array) => {
+  let nonZeroTiles = removeEmptyTiles(array);
+  var mergedTiles = [];
+
+  // we iterate throught non-zero array
+  for (let i = nonZeroTiles.length - 1; i >= 0; i--) {
+
+    // if we are at last index we automatically push (no merge possible)
+    if (i === 0) mergedTiles.unshift(nonZeroTiles[i]);
+    
+    //check current index === next index
+    else if (nonZeroTiles[i] === nonZeroTiles[i - 1]) {
+      //if same we merge and skip next index
+      mergedTiles.unshift(nonZeroTiles[i] * 2);
+      i--;
+    } else {
+
+      // if they dont merge, try next index
+      mergedTiles.unshift(nonZeroTiles[i]);
+    }
+  }
+
+  return mergedTiles;
 };
 
