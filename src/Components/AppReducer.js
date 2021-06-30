@@ -45,10 +45,7 @@ export const AppReducer = (state, action) => {
 
     case "DEBUG":
       let board = [...state.boardValues];
-      board[getRandomIndexFromEmptySquares(board)] = Math.pow(
-        2,
-        Math.trunc(Math.random() * state.numberOfRows - 1) + 1
-      );
+      board[getRandomIndexFromEmptySquares(board)] = randomSquareNumber();
       return { ...state, boardValues: board };
 
     default:
@@ -60,6 +57,9 @@ export const AppReducer = (state, action) => {
 
 // Create new boardValues Array
 const newGameBoard = (numberOfRows) => new Array(numberOfRows * numberOfRows).fill(0);
+
+//generate randomSquareNumber
+const randomSquareNumber = () => Math.pow(2, Math.trunc(Math.random() * 11) + 1);
 
 // get a random first tile for empty board
 const getFirstTile = (numberOfRows) => Math.trunc(Math.random() * Math.pow(numberOfRows, 2));
