@@ -25,21 +25,14 @@ const Header = (props) => {
         {state.numberOfRows} x {state.numberOfRows}
       </h4>
       <br />
-
-      {/* Start game Button */}
-      <button
-        className="btn btn-success my-3 me-5"
-        onClick={() => dispatch({ type: "NEW_GAME" })}
-      >
-        {state.isFirstGame ? "Débuter" : "Nouvelle Partie"}
-      </button>
-      {/* DeBUG BUTTON */}
-      <button
-        className="btn btn-success my-3"
-        onClick={() => dispatch({ type: "DEBUG" })}
-      >
-        Debug Generate random tile
-      </button>
+        <button
+          className="btn btn-success my-3 me-5"
+          onClick={() => dispatch({ type: "NEW_GAME" })}
+        >
+          {state.isFirstGame ? "Débuter" : "Nouvelle Partie"}
+        </button>
+      <br />
+      Nombre de mouvements : {state.movesCount}
     </>
   );
 };
