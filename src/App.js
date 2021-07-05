@@ -12,8 +12,12 @@ import useKeypress from "react-use-keypress";
 
 const App = () => {
 
+  //Setting useState for tile values
+  const [state, dispatch] = useReducer(AppReducer, defaultState)
+
   //handle keypress
   useKeypress(["ArrowLeft", "ArrowUp", "ArrowRight", "ArrowDown"], (e) => {
+    if (state.gameOver || state.gameWon) return;
     switch (e.key) {
       case "ArrowLeft": // LEFT
         dispatch({type: 'MOVE_LEFT'})
@@ -32,8 +36,7 @@ const App = () => {
     }
   });
     
-  //Setting useState for tile values
-  const [state, dispatch] = useReducer(AppReducer, defaultState)
+
 
 
   // MARK: RENDER
@@ -43,7 +46,11 @@ const App = () => {
         {/* HEADER */}
         <Header reducer={{state: state, dispatch: dispatch}}/>
         {/* BOARD */}
-        <Board numberOfRows={state.numberOfRows} boardValues={state.boardValues}/>
+        <Board 
+          reducer={{state: state, dispatch: dispatch}} 
+          numberOfRows={state.numberOfRows} 
+          boardValues={state.boardValues}
+        />
       </div>
     </React.Fragment>
   );  

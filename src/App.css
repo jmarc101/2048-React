@@ -44,12 +44,32 @@ input {
 }
 
 
-
+.holder {
+  margin: auto;
+  position: relative;
+}
 
 .board {
-
-  border: 5px solid rgb(3, 158, 3) ;
+  border: 5px solid rgb(3, 158, 3);
   margin: auto;
   margin-bottom: 2rem;
   border-radius: 10px;
+}
+
+.frozen {
+  opacity: 0.5;
+}
+
+.message {
+  position: absolute;
+  padding-top: 50%;
+  padding-bottom: 50%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  vertical-align:middle;
+  font-weight: bold;
+  z-index: 2; 
 }
