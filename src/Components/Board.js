@@ -21,20 +21,33 @@ const Board = (props) => {
 
   return (
     <>
-    <div className="holder" style={{ width: widthAndHeight, height: widthAndHeight}}>
-      <div className={type}>
-        <div className="row">
-          {boardValues.map((tile, index) => {
-            return <Square key={index} value={tile} rowLength={numberOfRows} />;
-          })}
+      <div
+        className="holder"
+        style={{ width: widthAndHeight, height: widthAndHeight }}
+      >
+        <div className={type}>
+          <div className="row">
+            {boardValues.map((tile, index) => {
+              return (
+                <Square key={index} value={tile} rowLength={numberOfRows} />
+              );
+            })}
+          </div>
         </div>
 
+        
+        <div
+          className="message-box"
+          style={{ opacity: state.gameOver || state.gameOver ? 0.5 : 0 }}
+        >
+          <p 
+          className="message-p">
+            {state.gameOver
+              ? "Game over"
+              : "Félicitation vous avez réussi"}
+          </p>
+        </div>
       </div>
-      {state.gameOver ? displayMessage("Game Over !") : <></>}
-      {state.gameWon ? displayMessage("You Win !") : <></>}
-    </div>
-
-
     </>
   );
 };

@@ -21,16 +21,16 @@ const Header = (props) => {
           dispatch({ type: "CHANGE_ROW_VALUE", payload: e.target.value })
         }
       />
-      <h4>
+      <label htmlFor="rows" className="offset ms-5">
         {state.numberOfRows} x {state.numberOfRows}
-      </h4>
+      </label>
       <br />
-        <button
-          className="btn btn-success my-3 me-5"
-          onClick={() => dispatch({ type: "NEW_GAME" })}
-        >
-          {state.isFirstGame ? "Débuter" : "Nouvelle Partie"}
-        </button>
+      <button
+        className="btn btn-lg btn-success my-3"
+        onClick={() => dispatch({ type: "NEW_GAME" })}
+      >
+        {state.isFirstGame ? "Débuter" : "Nouvelle Partie"}
+      </button>
       <br />
       Nombre de mouvements : {state.movesCount}
     </>
