@@ -1,13 +1,13 @@
 import React from "react";
 import colors from "../Ressources/colors";
 
-const Tile = ({value, rowLength}) => {
+const Tile = (props) => {
+  const {value, rowLength, action} = props;
   const smallSquares = rowLength > 10
 
-  //
   return (
     <div
-      className={smallSquares ? "tile-small" : "tile"}
+      className={smallSquares ? `tile-small ${action}` : `tile ${action}`}
       style={{
         backgroundColor: colors[Math.log2(value)],
         color: value >= 8 ? "white" : "darkGreen"        

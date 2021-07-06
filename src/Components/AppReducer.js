@@ -14,6 +14,7 @@ export const defaultState = {
   movesCount: 0,
   gameWon: false,
   gameOver: false,
+  action: null,
 };
 
 // REDUCER
@@ -35,6 +36,7 @@ export const AppReducer = (state, action) => {
         movesCount: 0, 
         gameWon: false,
         gameOver: false,
+        action: null,
       };
 
     case "CHANGE_ROW_VALUE":
@@ -43,6 +45,10 @@ export const AppReducer = (state, action) => {
         boardValues: newGameBoard(action.payload),
         numberOfRows: action.payload,
         isFirstGame: true,
+        movesCount: 0, 
+        gameWon: false,
+        gameOver: false,
+        action: null,
       };
 
     case "MOVE_UP":
@@ -66,7 +72,8 @@ export const AppReducer = (state, action) => {
         boardValues: newBoard, 
         movesCount: boardUnchanged ? state.movesCount : state.movesCount++, 
         gameWon: hasTile(newBoard, maxTile),
-        gameOver: hasNoEmptyTile(newBoard) ? detectEndOfGame({...state, boardValues: newBoard}) : false
+        gameOver: hasNoEmptyTile(newBoard) ? detectEndOfGame({...state, boardValues: newBoard}) : false,
+        action: action.type,
       };
 
     default:

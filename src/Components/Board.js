@@ -25,7 +25,7 @@ const Board = (props) => {
       <div className={type}>
         <div className="row">
           {boardValues.map((tile, index) => {
-            return <Square key={index} value={tile} rowLength={numberOfRows} />;
+            return <Square key={index} value={tile} rowLength={numberOfRows} action={state.action} />;
           })}
         </div>
 
