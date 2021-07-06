@@ -34,19 +34,15 @@ const App = () => {
 
   // MARK: RENDER
   return (
-    <React.Fragment>x
-      <div
-        className="wholeWindow"
-        onKeyDown={handleKeyPressed}
-        tabIndex={0}
-      >
+    <React.Fragment>
+      <div className="wholeWindow" onKeyDown={handleKeyPressed} tabIndex={0}>
         <div className="container mt-5 text-center">
           {/* HEADER */}
-          <Header reducer={{state: state, dispatch: dispatch}}/>
+          <Header reducer={{ state: state, dispatch: dispatch }} />
           {/* BOARD */}
-          <Board 
-            reducer={{state: state, dispatch: dispatch}} 
-            numberOfRows={state.numberOfRows} 
+          <Board
+            reducer={{ state: state, dispatch: dispatch }}
+            numberOfRows={state.numberOfRows}
             boardValues={state.boardValues}
           />
         </div>
