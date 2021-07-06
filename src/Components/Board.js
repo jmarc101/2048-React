@@ -35,16 +35,16 @@ const Board = (props) => {
           </div>
         </div>
 
-        
         <div
           className="message-box"
-          style={{ opacity: state.gameOver || state.gameOver ? 0.5 : 0 }}
+          style={{
+            opacity: state.gameOver || state.gameOver ? 0.5 : 0,
+            transitionDuration:
+              state.gameOver || state.gameOver ? "3000ms" : "0ms",
+          }}
         >
-          <p 
-          className="message-p">
-            {state.gameOver
-              ? "Game over"
-              : "Félicitation vous avez réussi"}
+          <p className="message-p">
+            {state.gameOver ? "Game over" : "Félicitation vous avez réussi"}
           </p>
         </div>
       </div>
