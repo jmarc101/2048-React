@@ -7,8 +7,7 @@ const Board = (props) => {
   const { state } = props.reducer;
 
   const widthAndHeight =
-    Math.sqrt(numberOfRows * numberOfRows) * (numberOfRows > 10 ? 50 : 100) +
-    10;
+    numberOfRows * (numberOfRows > 10 ? 50 : 100) + 10;
 
 
   const type = state.gameOver || state.gameWon ? "container board frozen" : "container board";

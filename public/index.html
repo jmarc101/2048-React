@@ -25,6 +25,13 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>2048</title>
+    <script>
+      // https://stackoverflow.com/questions/8916620/disable-arrow-key-scrolling-in-users-browser
+      window.addEventListener("keydown", function(e) {
+      if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
+          e.preventDefault();
+      }}, false);
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
