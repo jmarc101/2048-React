@@ -3,11 +3,6 @@ import {defaultState, AppReducer} from './Components/AppReducer'
 import "./App.css";
 import Board from "./Components/Board";
 import Header from './Components/Header'
-import useKeypress from "react-use-keypress";
-
-
-
-
 
 
 const App = () => {
@@ -16,8 +11,9 @@ const App = () => {
   const [state, dispatch] = useReducer(AppReducer, defaultState)
 
   //handle keypress
-  useKeypress(["ArrowLeft", "ArrowUp", "ArrowRight", "ArrowDown"], (e) => {
-    if (state.gameOver || state.gameWon) return;
+  const handleKeyPressed = e => {
+
+    if (state.gameOver || state.gameWon || state.isFirstGame) return;
     switch (e.key) {
       case "ArrowLeft": // LEFT
         dispatch({type: 'MOVE_LEFT'})
@@ -34,23 +30,26 @@ const App = () => {
       default:
         break;
     }
-  });
-    
-
-
+  };
 
   // MARK: RENDER
   return (
-    <React.Fragment>
-      <div className="container mt-5 text-center">
-        {/* HEADER */}
-        <Header reducer={{state: state, dispatch: dispatch}}/>
-        {/* BOARD */}
-        <Board 
-          reducer={{state: state, dispatch: dispatch}} 
-          numberOfRows={state.numberOfRows} 
-          boardValues={state.boardValues}
-        />
+    <React.Fragment>x
+      <div
+        className="wholeWindow"
+        onKeyDown={handleKeyPressed}
+        tabIndex={0}
+      >
+        <div className="container mt-5 text-center">
+          {/* HEADER */}
+          <Header reducer={{state: state, dispatch: dispatch}}/>
+          {/* BOARD */}
+          <Board 
+            reducer={{state: state, dispatch: dispatch}} 
+            numberOfRows={state.numberOfRows} 
+            boardValues={state.boardValues}
+          />
+        </div>
       </div>
     </React.Fragment>
   );  

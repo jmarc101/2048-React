@@ -64,9 +64,9 @@ export const AppReducer = (state, action) => {
       return { 
         ...state, 
         boardValues: newBoard, 
-        movesCount: state.movesCount++, 
+        movesCount: boardUnchanged ? state.movesCount : state.movesCount++, 
         gameWon: hasTile(newBoard, maxTile),
-        gameOver: boardUnchanged && hasNoEmptyTile(newBoard)
+        gameOver: hasNoEmptyTile(newBoard) ? detectEndOfGame({...state, boardValues: newBoard}) : false
       };
 
     default:
@@ -230,5 +230,26 @@ const mergeDownRight = (array) => {
     }
   }
   return mergedTiles;
+};
+
+const detectEndOfGame = (state) => {
+
+  const board = [...state.boardValues];
+  const initialBoard = JSON.parse(JSON.stringify(board));
+
+  const playUp = playedUp(state);
+  if (JSON.stringify(initialBoard) !== JSON.stringify(playUp)) return false;
+
+  const playRight = playedRight(state);
+  if (JSON.stringify(initialBoard) !== JSON.stringify(playRight)) return false;
+
+  const playDown = playedDown(state);
+  if (JSON.stringify(initialBoard) !== JSON.stringify(playDown)) return false;
+
+  const playLeft = playedLeft(state);
+  if (JSON.stringify(initialBoard) !== JSON.stringify(playLeft)) return false;
+
+  return true;
+
 };
 
