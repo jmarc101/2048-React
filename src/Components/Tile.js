@@ -1,26 +1,32 @@
 import React from "react";
 import colors from "../Ressources/colors";
 
-const Tile = ({value, rowLength}) => {
-  const smallSquares = rowLength > 10
+class Tile extends React.Component {
 
-  //
-  return (
-    <div
-      className={smallSquares ? "tile-small" : "tile"}
-      style={{
-        backgroundColor: colors[Math.log2(value)],
-        color: value >= 8 ? "white" : "darkGreen"        
-      }}>
-      <p 
-        className={smallSquares ? "content-small" : "content"}
+  render() {
+
+    const { value, rowLength } = this.props;
+    const smallSquares = rowLength > 10;
+
+    return (
+      <div
+        className={smallSquares ? "tile-small" : "tile"}
         style={{
-          marginLeft: smallSquares && value > 1000 ? "-9px" : '0'}}
-          // TEXT NUMBER
-        > {value === 0 ? "" : "" + value}
-        </p>
-    </div>
-  );
-};
+          backgroundColor: colors[Math.log2(value)],
+          color: value >= 8 ? "white" : "darkGreen"        
+        }}>
+        <p 
+          className={smallSquares ? "content-small" : "content"}
+          style={{
+            marginLeft: smallSquares && value > 1000 ? "-9px" : '0'}}
+            // TEXT NUMBER
+          > {value === 0 ? "" : "" + value}
+          </p>
+      </div>
+    );
+
+  }
+
+}
 
 export default Tile;
